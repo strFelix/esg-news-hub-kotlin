@@ -8,38 +8,38 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = DarkPrimary,
-    secondary = DarkSecondary,
-    tertiary = DarkTertiary,
-    background = DarkBackground,
-    surface = DarkSurface,
-    onPrimary = DarkOnPrimary,
-    onSecondary = DarkOnSecondary,
-    onTertiary = DarkOnTertiary,
-    onBackground = DarkOnBackground,
-    onSurface = DarkOnSurface,
+    primary = Yellow,
+    secondary = GrayAD,
+    tertiary = Gray9B,
+    background = Black17,
+    surface = Black17,
+    onPrimary = Color.Black,
+    onSecondary = Color.White,
+    onTertiary = Color.White,
+    onBackground = GrayE8,
+    onSurface = GrayE8
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = LightPrimary,
-    secondary = LightSecondary,
-    tertiary = LightTertiary,
-    background = LightBackground,
-    surface = LightSurface,
-    onPrimary = LightOnPrimary,
-    onSecondary = LightOnSecondary,
-    onTertiary = LightOnTertiary,
-    onBackground = LightOnBackground,
-    onSurface = LightOnSurface,
+    primary = Yellow,
+    secondary = GrayAD,
+    tertiary = Gray9B,
+    background = Color.White,
+    surface = Color.White,
+    onPrimary = Color.Black,
+    onSecondary = Color.Black,
+    onTertiary = Color.Black,
+    onBackground = Black17,
+    onSurface = Black17
 )
 
 @Composable
 fun EsgnewshubkotlinTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {

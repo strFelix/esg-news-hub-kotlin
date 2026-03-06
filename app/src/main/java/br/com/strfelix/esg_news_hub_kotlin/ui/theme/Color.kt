@@ -1,35 +1,26 @@
 package br.com.strfelix.esg_news_hub_kotlin.ui.theme
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Brush
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+val Black17 = Color(0xFF171717)
+val GrayE8 = Color(0xFFE8E8E8)
+val GrayAD = Color(0xFFADADAD)
+val GrayF3 = Color(0xFFF3F3F3)
+val Gray9B = Color(0xFF9B9B9B)
+val Yellow = Color(0xFFEEC213)
 
-// CORES DO TEMA CLARO
-val LightPrimary = Color(0xFFED1459)
-val LightSecondary = Color(0xFF808080)
-val LightBackground = Color(0xFFFFFFFF)
-val LightSurface = Color(0xFFFFFFFF)
-val LightOnPrimary = Color(0xFFFFFFFF)
-val LightOnSecondary = Color(0xFFFFFFFF)
-val LightOnBackground = Color(0xFF000000)
-val LightOnSurface = Color(0xFF000000)
-val LightTertiary = Color(0xFFFFD740)
-val LightOnTertiary = Color(0xFF000000)
+// cores com opacidade
+val Black17_60Percent = Black17.copy(alpha = 0.60f)
+val Black17_20Percent = Black17.copy(alpha = 0.20f)
+val GrayE8_20Percent = GrayE8.copy(alpha = 0.20f)
+val BlackPure_02Percent = Color(0xFF000000).copy(alpha = 0.02f)
 
-// CORES DO TEMA ESCURO
-val DarkPrimary = Color(0xFFE78EAA)
-val DarkSecondary = Color(0xFFBDBDBD)
-val DarkBackground = Color(0xFF232323)
-val DarkSurface = Color(0xFF333333)
-val DarkOnPrimary = Color(0xFFFFFFFF)
-val DarkOnSecondary = Color(0xFF000000)
-val DarkOnBackground = Color(0xFFFFFFFF)
-val DarkOnSurface = Color(0xFFFFFFFF)
-val DarkTertiary = Color(0xFFF0AD4E)
-val DarkOnTertiary = Color(0xFF000000)
+// gradiente
+val GradientStart = Color(0xFFCDA505)
+val GradientEnd = Color(0xFFF8CF2B)
+
+val EsgBackgroundGradient = Brush.verticalGradient(
+    colors = listOf(GradientStart, GradientEnd)
+)
