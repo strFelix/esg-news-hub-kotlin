@@ -55,6 +55,9 @@ dependencies {
 //    room
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
+    
+//    coil
+    implementation(libs.coil.compose)
 
     implementation(libs.kotlinx.serialization.json)
     testImplementation(libs.junit)
