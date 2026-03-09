@@ -27,7 +27,7 @@ fun CategoryButtonComponent(
         modifier = Modifier
             .width(110.dp)
             .height(38.dp)
-            .clickable() { onClick() },
+            .clickable { onClick() },
         colors = CardDefaults.cardColors(
             containerColor = if (selected)
                 MaterialTheme.colorScheme.primary

@@ -82,7 +82,7 @@ fun NewsCard(
 @Composable
 @Preview
 fun NewsCardPreview() {
-    EsgnewshubkotlinTheme() {
+    EsgnewshubkotlinTheme {
         NewsCard(
             imageUrl = "https://via.placeholder.com/150",
             title = "Sample Title",
