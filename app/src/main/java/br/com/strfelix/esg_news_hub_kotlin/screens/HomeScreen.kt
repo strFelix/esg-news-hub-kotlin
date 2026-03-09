@@ -391,7 +391,7 @@ fun NavBarBottom(modifier: Modifier = Modifier, navController: NavController) {
 @Preview
 @Composable
 fun NavBarBottomPreview() {
-    EsgnewshubkotlinTheme() {
+    EsgnewshubkotlinTheme {
         NavBarBottom(navController = rememberNavController())
     }
 }
@@ -399,7 +399,7 @@ fun NavBarBottomPreview() {
 @Preview
 @Composable
 fun TopBarPreview() {
-    EsgnewshubkotlinTheme() {
+    EsgnewshubkotlinTheme {
         TopBar()
     }
 }
@@ -407,7 +407,7 @@ fun TopBarPreview() {
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    EsgnewshubkotlinTheme() {
+    EsgnewshubkotlinTheme {
         HomeScreen(rememberNavController())
     }
 }
@@ -415,7 +415,7 @@ fun HomeScreenPreview() {
 @Preview
 @Composable
 fun NewsFilterSectionPreview() {
-    EsgnewshubkotlinTheme() {
+    EsgnewshubkotlinTheme {
         NewsFilterSection(selectedCategory = null, onCategoryClick = {}, searchText = "", onSearchChange = {})
     }
 }

@@ -11,7 +11,7 @@ import br.com.strfelix.esg_news_hub_kotlin.screens.SignUpScreen
 
 @Composable
 fun NavigationRoutes() {
-    val navController = rememberNavController();
+    val navController = rememberNavController()
     NavHost(
         navController = navController,
         startDestination = Destination.HomeScreen.route
