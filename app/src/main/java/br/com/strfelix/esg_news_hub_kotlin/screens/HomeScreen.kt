@@ -15,7 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -36,6 +36,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -54,6 +55,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import br.com.strfelix.esg_news_hub_kotlin.R
 import br.com.strfelix.esg_news_hub_kotlin.model.Article
+import br.com.strfelix.esg_news_hub_kotlin.repository.news.NewsRepository
 import br.com.strfelix.esg_news_hub_kotlin.screens.components.BackgroundPosition
 import br.com.strfelix.esg_news_hub_kotlin.screens.components.BackgroundVector
 import br.com.strfelix.esg_news_hub_kotlin.screens.components.CategoryButtonComponent
@@ -138,74 +140,70 @@ fun TopBar() {
     )
 }
 
+
 @Composable
 fun Content(modifier: Modifier = Modifier, navController: NavController) {
+    val newsRepository = remember { NewsRepository() }
+
+    var fullApiArticles by remember { mutableStateOf<List<Article>>(emptyList()) }
+    var displayCount by remember { mutableStateOf(10) }
+
+    LaunchedEffect(Unit) {
+        fullApiArticles = newsRepository.getAllNews()
+    }
+
+    var searchText by remember { mutableStateOf("") }
+    var selectedCategory by remember { mutableStateOf<String?>(null) }
+
+    val environmentKeywords = listOf(
+        "climate", "environment", "carbon", "sustainability", "renewable"
+    )
+    val socialKeywords = listOf(
+        "women", "education", "community", "diversity", "inclusion", "social"
+    )
+    val governanceKeywords = listOf(
+        "governance", "compliance", "board", "transparency", "ethics"
+    )
+
+    // Filtro global sobre os dados carregados da API
+    val allFilteredArticles = fullApiArticles.filter { article ->
+        val text = "${article.title} ${article.description}".lowercase()
+
+        val matchesSearch =
+            article.title?.contains(searchText, true) == true ||
+                    article.description?.contains(searchText, true) == true
+
+        val matchesCategory = when (selectedCategory) {
+            "environment" -> environmentKeywords.any { text.contains(it) }
+            "social" -> socialKeywords.any { text.contains(it) }
+            "governance" -> governanceKeywords.any { text.contains(it) }
+            else -> true
+        }
+
+        matchesSearch && matchesCategory
+    }
+
+    // Lista final que será renderizada (paginação local)
+    val articlesToDisplay = allFilteredArticles.take(displayCount)
+
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 24.dp)
     ) {
-        val mockArticles = listOf(
-            Article(
-                title = "SBI rolls out $500 million social loan programme",
-                description = "State Bank of India has launched a USD 500 million syndicated social term loan focused on women empowerment.",
-                urlToImage = "https://www.livemint.com/lm-img/img/2026/03/07/1600x900/logo/STATE-BANK-INDIA-FUNDRAISING--0_1686300346067_1772877998515.JPG"
-            ),
-            Article(
-                title = "Companies increase ESG investments",
-                description = "Organizations are investing more in environmental and social governance strategies.",
-                urlToImage = "https://journals.plos.org/plosone/article/figure/image?id=10.1371/journal.pone.0344283.g001&size=inline"
-            )
-        )
-        var searchText by remember { mutableStateOf("") }
-        var selectedCategory by remember { mutableStateOf<String?>(null) }
-
-        // MVP: Keywords to filter articles <--
-        // v1: AI Agent to filter articles
-        val environmentKeywords = listOf(
-            "climate", "environment", "carbon", "sustainability", "renewable"
-        )
-        val socialKeywords = listOf(
-            "women", "education", "community", "diversity", "inclusion", "social"
-        )
-        val governanceKeywords = listOf(
-            "governance", "compliance", "board", "transparency", "ethics"
-        )
-
-        val filteredArticles = mockArticles.filter { article ->
-
-            val text = "${article.title} ${article.description}".lowercase()
-
-            val matchesSearch =
-                article.title?.contains(searchText, true) == true ||
-                        article.description?.contains(searchText, true) == true
-
-            val matchesCategory = when (selectedCategory) {
-
-                "environment" ->
-                    environmentKeywords.any { text.contains(it) }
-
-                "social" ->
-                    socialKeywords.any { text.contains(it) }
-
-                "governance" ->
-                    governanceKeywords.any { text.contains(it) }
-
-                else -> true
-            }
-
-            matchesSearch && matchesCategory
-        }
-
         NewsFilterSection(
             selectedCategory = selectedCategory,
             onCategoryClick = { category ->
                 selectedCategory =
                     if (selectedCategory == category) null
                     else category
+                displayCount = 10 // Reseta a exibição ao trocar categoria
             },
             searchText = searchText,
-            onSearchChange = { searchText = it}
+            onSearchChange = { 
+                searchText = it
+                displayCount = 10 // Reseta a exibição ao digitar
+            }
 
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -213,14 +211,18 @@ fun Content(modifier: Modifier = Modifier, navController: NavController) {
             modifier = Modifier.fillMaxSize()
         ) {
 
-            items(filteredArticles) { article ->
-
+            itemsIndexed(articlesToDisplay) { index, article ->
                 NewsCard(
                     imageUrl = article.urlToImage,
                     title = article.title ?: "",
                     description = article.description ?: ""
                 )
                 Spacer(modifier = Modifier.height(12.dp))
+
+                // Gatilho para carregar mais 10 itens localmente
+                if (index == articlesToDisplay.lastIndex && displayCount < allFilteredArticles.size) {
+                    displayCount += 10
+                }
             }
         }
     }
