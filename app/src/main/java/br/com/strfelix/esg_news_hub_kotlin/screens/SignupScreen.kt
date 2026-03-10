@@ -42,10 +42,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import br.com.strfelix.esg_news_hub_kotlin.routes.Destination
 import br.com.strfelix.esg_news_hub_kotlin.ui.theme.EsgnewshubkotlinTheme
 
 @Composable
-fun RegisterScreen(navController: NavController) {
+fun SignupScreen(navController: NavController) {
 
     var nome by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -191,6 +192,6 @@ fun RegisterScreen(navController: NavController) {
 @Composable
 fun RegisterPreview() {
     EsgnewshubkotlinTheme {
-        RegisterScreen(navController = rememberNavController())
+        SignupScreen(navController = rememberNavController())
     }
 }

@@ -9,7 +9,7 @@ import br.com.strfelix.esg_news_hub_kotlin.screens.HomeScreen
 import br.com.strfelix.esg_news_hub_kotlin.screens.InitialScreen
 import br.com.strfelix.esg_news_hub_kotlin.screens.LoginScreen
 import br.com.strfelix.esg_news_hub_kotlin.screens.NewsScreen
-import br.com.strfelix.esg_news_hub_kotlin.screens.SignUpScreen
+import br.com.strfelix.esg_news_hub_kotlin.screens.SignupScreen
 import br.com.strfelix.esg_news_hub_kotlin.viewModel.NewsViewModel
 
 @Composable
@@ -19,10 +19,10 @@ fun NavigationRoutes() {
 
     NavHost(
         navController = navController,
-        startDestination = Destination.HomeScreen.route
+        startDestination = Destination.InitialScreen.route
     ) {
         composable(Destination.InitialScreen.route){ InitialScreen(navController) }
-        composable(Destination.SignupScreen.route) { SignUpScreen(navController) }
+        composable(Destination.SignupScreen.route) { SignupScreen(navController) }
         composable(Destination.LoginScreen.route) { LoginScreen(navController) }
         composable(Destination.HomeScreen.route) { HomeScreen(navController, newsViewModel) }
         
