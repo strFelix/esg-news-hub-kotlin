@@ -15,11 +15,15 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Article
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,6 +36,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,8 +45,11 @@ import androidx.navigation.compose.rememberNavController
 import br.com.strfelix.esg_news_hub_kotlin.ui.theme.EsgnewshubkotlinTheme
 
 @Composable
-fun LoginScreen(navController: NavController
-                ){
+fun LoginScreen(navController: NavController) {
+
+    var email by remember { mutableStateOf("") }
+    var senha by remember { mutableStateOf("") }
+    var senhaVisivel by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -62,9 +70,7 @@ fun LoginScreen(navController: NavController
             modifier = Modifier.padding(24.dp)
         ) {
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
 
                 Icon(
                     imageVector = Icons.Default.Article,
@@ -93,14 +99,15 @@ fun LoginScreen(navController: NavController
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            var email by remember { mutableStateOf("") }
-            var senha by remember { mutableStateOf("") }
-
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
                 placeholder = { Text("Digite seu email") },
                 shape = RoundedCornerShape(10.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White
+                ),
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -110,8 +117,35 @@ fun LoginScreen(navController: NavController
                 value = senha,
                 onValueChange = { senha = it },
                 placeholder = { Text("Insira sua senha") },
-                visualTransformation = PasswordVisualTransformation(),
+
+                visualTransformation =
+                    if (senhaVisivel)
+                        VisualTransformation.None
+                    else
+                        PasswordVisualTransformation(),
+
+                trailingIcon = {
+                    IconButton(onClick = {
+                        senhaVisivel = !senhaVisivel
+                    }) {
+                        Icon(
+                            imageVector =
+                                if (senhaVisivel)
+                                    Icons.Default.Visibility
+                                else
+                                    Icons.Default.VisibilityOff,
+                            contentDescription = "Mostrar senha"
+                        )
+                    }
+                },
+
                 shape = RoundedCornerShape(10.dp),
+
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White
+                ),
+
                 modifier = Modifier.fillMaxWidth()
             )
 
