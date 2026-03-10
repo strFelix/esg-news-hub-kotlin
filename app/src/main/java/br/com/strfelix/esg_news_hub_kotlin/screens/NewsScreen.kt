@@ -30,10 +30,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import br.com.strfelix.esg_news_hub_kotlin.R
 import br.com.strfelix.esg_news_hub_kotlin.screens.components.BackgroundPosition
 import br.com.strfelix.esg_news_hub_kotlin.screens.components.BackgroundVector
 import br.com.strfelix.esg_news_hub_kotlin.screens.components.TopBar
@@ -131,6 +133,8 @@ fun Content(
 
         AsyncImage(
             model = urlToImage,
+            placeholder = painterResource(id = R.drawable.news_placeholder),
+            error = painterResource(id = R.drawable.news_placeholder),
             contentDescription = title,
             modifier = Modifier
                 .fillMaxWidth()
@@ -181,10 +185,9 @@ fun Content(
                 onClick = {
                     try {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                        val chooser = Intent.createChooser(intent, "Open with...")
-                        context.startActivity(chooser)
+                        context.startActivity(intent)
                     } catch (e: Exception) {
-                        Toast.makeText(context, "No browser found", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "No browser found to open this link", Toast.LENGTH_SHORT).show()
                     }
                 },
                 modifier = Modifier.fillMaxWidth()
