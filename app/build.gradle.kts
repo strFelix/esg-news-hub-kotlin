@@ -76,6 +76,9 @@ dependencies {
     implementation(libs.retrofit.converter.gson)
     implementation(libs.retrofit.converter.kotlinx.serialization)
 
+//    browser
+    implementation(libs.androidx.browser)
+
     implementation(libs.kotlinx.serialization.json)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
