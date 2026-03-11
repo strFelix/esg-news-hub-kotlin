@@ -153,8 +153,22 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel) {
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
-
+            Spacer(modifier = Modifier.height(12.dp))
+            if (authenticateError){
+                Row {
+                    Icon(
+                        imageVector = Icons.Default.Error,
+                        contentDescription = "",
+                        tint = MaterialTheme.colorScheme.error
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = stringResource(R.string.authentication_error),
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(12.dp))
             Row (
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             )
@@ -185,24 +199,8 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel) {
                         fontSize = 18.sp
                     )
                 }
-                Spacer(modifier = Modifier.height(16.dp))
-                if (authenticateError){
-                    Row {
-                        Icon(
-                            imageVector = Icons.Default.Error,
-                            contentDescription = "",
-                            tint = MaterialTheme.colorScheme.error
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = stringResource(R.string.authentication_error),
-                            color = MaterialTheme.colorScheme.error
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
                 OutlinedButton(
-                    onClick = { },
+                    onClick = {navController.navigate(Destination.InitialScreen.route)},
                     border = BorderStroke(2.dp, Color.Black),
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Black),
                     shape = RoundedCornerShape(12.dp),
