@@ -10,12 +10,14 @@ import br.com.strfelix.esg_news_hub_kotlin.screens.InitialScreen
 import br.com.strfelix.esg_news_hub_kotlin.screens.LoginScreen
 import br.com.strfelix.esg_news_hub_kotlin.screens.NewsScreen
 import br.com.strfelix.esg_news_hub_kotlin.screens.SignupScreen
+import br.com.strfelix.esg_news_hub_kotlin.viewModel.AuthViewModel
 import br.com.strfelix.esg_news_hub_kotlin.viewModel.NewsViewModel
 
 @Composable
 fun NavigationRoutes() {
     val navController = rememberNavController()
     val newsViewModel: NewsViewModel = viewModel()
+    val authViewModel: AuthViewModel = viewModel()
 
     NavHost(
         navController = navController,
@@ -23,11 +25,17 @@ fun NavigationRoutes() {
     ) {
         composable(Destination.InitialScreen.route){ InitialScreen(navController) }
         composable(Destination.SignupScreen.route) { SignupScreen(navController) }
-        composable(Destination.LoginScreen.route) { LoginScreen(navController) }
-        composable(Destination.HomeScreen.route) { HomeScreen(navController, newsViewModel) }
+
+        composable(Destination.LoginScreen.route) {
+            LoginScreen(navController, authViewModel)
+        }
+
+        composable(Destination.HomeScreen.route) {
+            HomeScreen(navController, newsViewModel, authViewModel)
+        }
         
         composable(route = Destination.NewsScreen.route) {
-            NewsScreen(navController, newsViewModel)
+            NewsScreen(navController, newsViewModel, authViewModel)
         }
     }
 }

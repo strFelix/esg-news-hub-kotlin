@@ -53,17 +53,18 @@ import br.com.strfelix.esg_news_hub_kotlin.screens.components.CategoryButtonComp
 import br.com.strfelix.esg_news_hub_kotlin.screens.components.NewsCard
 import br.com.strfelix.esg_news_hub_kotlin.screens.components.TopBar
 import br.com.strfelix.esg_news_hub_kotlin.ui.theme.EsgnewshubkotlinTheme
+import br.com.strfelix.esg_news_hub_kotlin.viewModel.AuthViewModel
 import br.com.strfelix.esg_news_hub_kotlin.viewModel.NewsViewModel
 
 @Composable
-fun HomeScreen(navController: NavController, newsViewModel: NewsViewModel) {
+fun HomeScreen(navController: NavController, newsViewModel: NewsViewModel, authViewModel: AuthViewModel) {
     Box(modifier = Modifier.fillMaxSize()){
         BackgroundVector(position = BackgroundPosition.Top)
         BackgroundVector(position = BackgroundPosition.Bottom)
         Scaffold(
             containerColor = Color.Transparent,
             topBar = {
-                TopBar()
+                TopBar(userName = authViewModel.loggedUser?.name ?: "Guest")
             },
             bottomBar = {
                 NavBarBottom(navController = navController)
@@ -337,7 +338,7 @@ fun NavBarBottomPreview() {
 @Composable
 fun TopBarPreview() {
     EsgnewshubkotlinTheme {
-        TopBar()
+        TopBar("Guest")
     }
 }
 

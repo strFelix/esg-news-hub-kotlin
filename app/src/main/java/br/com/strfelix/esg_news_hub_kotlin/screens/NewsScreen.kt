@@ -39,6 +39,7 @@ import br.com.strfelix.esg_news_hub_kotlin.R
 import br.com.strfelix.esg_news_hub_kotlin.screens.components.BackgroundPosition
 import br.com.strfelix.esg_news_hub_kotlin.screens.components.BackgroundVector
 import br.com.strfelix.esg_news_hub_kotlin.screens.components.TopBar
+import br.com.strfelix.esg_news_hub_kotlin.viewModel.AuthViewModel
 import br.com.strfelix.esg_news_hub_kotlin.viewModel.NewsViewModel
 import coil.compose.AsyncImage
 import java.time.ZonedDateTime
@@ -48,7 +49,8 @@ import java.util.Locale
 @Composable
 fun NewsScreen(
     navController: NavController,
-    newsViewModel: NewsViewModel
+    newsViewModel: NewsViewModel,
+    authViewModel: AuthViewModel
     ){
     val article = newsViewModel.selectedArticle
 
@@ -58,7 +60,7 @@ fun NewsScreen(
         Scaffold(
             containerColor = Color.Transparent,
             topBar = {
-                TopBar()
+                TopBar(userName = authViewModel.loggedUser?.name ?: "Guest")
             },
             bottomBar = {
                 NavBarBottom(navController = navController)
