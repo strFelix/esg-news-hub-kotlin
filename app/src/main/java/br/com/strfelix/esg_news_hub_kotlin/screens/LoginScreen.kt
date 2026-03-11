@@ -11,17 +11,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Article
+import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -33,8 +33,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -46,17 +46,24 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import br.com.strfelix.esg_news_hub_kotlin.R
+import br.com.strfelix.esg_news_hub_kotlin.repository.user.UserRepository
+import br.com.strfelix.esg_news_hub_kotlin.routes.Destination
 import br.com.strfelix.esg_news_hub_kotlin.screens.components.BackgroundPosition
 import br.com.strfelix.esg_news_hub_kotlin.screens.components.BackgroundVector
 import br.com.strfelix.esg_news_hub_kotlin.ui.theme.EsgBackgroundGradient
 import br.com.strfelix.esg_news_hub_kotlin.ui.theme.EsgnewshubkotlinTheme
+import br.com.strfelix.esg_news_hub_kotlin.viewModel.AuthViewModel
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavController, authViewModel: AuthViewModel) {
 
     var email by remember { mutableStateOf("") }
-    var senha by remember { mutableStateOf("") }
-    var senhaVisivel by remember { mutableStateOf(false) }
+    var password by remember { mutableStateOf("") }
+    var passwordShow by remember { mutableStateOf(false) }
+    var authenticateError by remember { mutableStateOf(false) }
+
+    val userRepository: UserRepository =
+        UserRepository(LocalContext.current)
 
     Box(
         modifier = Modifier
@@ -111,27 +118,27 @@ fun LoginScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(12.dp))
 
             OutlinedTextField(
-                value = senha,
-                onValueChange = { senha = it },
+                value = password,
+                onValueChange = { password = it },
                 placeholder = { Text(text=stringResource(id = R.string.password_hint)) },
 
                 visualTransformation =
-                    if (senhaVisivel)
+                    if (passwordShow)
                         VisualTransformation.None
                     else
                         PasswordVisualTransformation(),
 
                 trailingIcon = {
                     IconButton(onClick = {
-                        senhaVisivel = !senhaVisivel
+                        passwordShow = !passwordShow
                     }) {
                         Icon(
                             imageVector =
-                                if (senhaVisivel)
+                                if (passwordShow)
                                     Icons.Default.Visibility
                                 else
                                     Icons.Default.VisibilityOff,
-                            contentDescription = "Mostrar senha"
+                            contentDescription = R.string.show_password_description.toString()
                         )
                     }
                 },
@@ -146,15 +153,40 @@ fun LoginScreen(navController: NavController) {
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
-
+            Spacer(modifier = Modifier.height(12.dp))
+            if (authenticateError){
+                Row {
+                    Icon(
+                        imageVector = Icons.Default.Error,
+                        contentDescription = "",
+                        tint = MaterialTheme.colorScheme.error
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = stringResource(R.string.authentication_error),
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(12.dp))
             Row (
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             )
             {
 
                 Button(
-                    onClick = {},
+                    onClick = {
+                        val authenticate =
+                            userRepository.login(email, password)
+                        if (authenticate) {
+                            authViewModel.loggedUser = userRepository.getUserByEmail(email)
+                            navController.navigate(
+                                Destination.HomeScreen.route
+                            )
+                        } else {
+                            authenticateError = true
+                        }
+                    },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
                     shape = RoundedCornerShape(12.dp),
                     modifier = Modifier
@@ -167,9 +199,8 @@ fun LoginScreen(navController: NavController) {
                         fontSize = 18.sp
                     )
                 }
-
                 OutlinedButton(
-                    onClick = { },
+                    onClick = {navController.navigate(Destination.InitialScreen.route)},
                     border = BorderStroke(2.dp, Color.Black),
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Black),
                     shape = RoundedCornerShape(12.dp),
@@ -189,10 +220,13 @@ fun LoginScreen(navController: NavController) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun LoginPreview() {
-    EsgnewshubkotlinTheme {
-        LoginScreen(navController = rememberNavController())
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun LoginPreview() {
+//    EsgnewshubkotlinTheme {
+//        LoginScreen(
+//            navController = rememberNavController(),
+//            authViewModel = AuthViewModel()
+//        )
+//    }
+//}

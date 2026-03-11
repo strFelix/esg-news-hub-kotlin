@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -31,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -39,6 +41,7 @@ import br.com.strfelix.esg_news_hub_kotlin.R
 import br.com.strfelix.esg_news_hub_kotlin.screens.components.BackgroundPosition
 import br.com.strfelix.esg_news_hub_kotlin.screens.components.BackgroundVector
 import br.com.strfelix.esg_news_hub_kotlin.screens.components.TopBar
+import br.com.strfelix.esg_news_hub_kotlin.viewModel.AuthViewModel
 import br.com.strfelix.esg_news_hub_kotlin.viewModel.NewsViewModel
 import coil.compose.AsyncImage
 import java.time.ZonedDateTime
@@ -48,7 +51,8 @@ import java.util.Locale
 @Composable
 fun NewsScreen(
     navController: NavController,
-    newsViewModel: NewsViewModel
+    newsViewModel: NewsViewModel,
+    authViewModel: AuthViewModel
     ){
     val article = newsViewModel.selectedArticle
 
@@ -58,7 +62,7 @@ fun NewsScreen(
         Scaffold(
             containerColor = Color.Transparent,
             topBar = {
-                TopBar()
+                TopBar(userName = authViewModel.loggedUser?.name ?: "Guest")
             },
             bottomBar = {
                 NavBarBottom(navController = navController)
@@ -111,7 +115,7 @@ fun Content(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .clickable() { navController.popBackStack() }
+                .clickable { navController.popBackStack() }
         ) {
 
             Icon(
@@ -181,18 +185,18 @@ fun Content(
         Spacer(modifier = Modifier.height(24.dp))
 
         if (!url.isNullOrBlank()) {
-            androidx.compose.material3.Button(
+            Button(
                 onClick = {
                     try {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                         context.startActivity(intent)
                     } catch (e: Exception) {
-                        Toast.makeText(context, "No browser found to open this link", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, R.string.not_found_browser, Toast.LENGTH_SHORT).show()
                     }
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Read Full Article")
+                Text(text = stringResource(R.string.read_more))
             }
         }
 
