@@ -66,12 +66,7 @@ fun TopBar() {
                         color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.Medium
                     )
-                    Text(
-                        text = user.name,
-                        style = MaterialTheme.typography.titleSmall,
-                        color = MaterialTheme.colorScheme.onBackground,
-                        fontWeight = FontWeight.Bold
-                    )
+
                 }
 
                 Card(
