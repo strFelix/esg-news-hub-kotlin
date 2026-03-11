@@ -67,7 +67,7 @@ fun TopBar() {
                         fontWeight = FontWeight.Medium
                     )
                     Text(
-                        text = "<name_user>",
+                        text = user.name,
                         style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.Bold
