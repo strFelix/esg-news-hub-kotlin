@@ -219,7 +219,7 @@ fun SignupScreen(navController: NavController) {
                                         Icons.Default.Visibility
                                     else
                                         Icons.Default.VisibilityOff,
-                                contentDescription = R.string.show_password_description.toString()
+                                contentDescription = stringResource(R.string.show_password_description)
                             )
                         }
                     }
@@ -306,10 +306,10 @@ fun SignupScreen(navController: NavController) {
                     AlertDialog(
                         onDismissRequest = { showDialogError = false },
                         title = {
-                            Text(text = R.string.success.toString())
+                            Text(text = stringResource(R.string.success))
                         },
                         text = {
-                            Text(text = R.string.account_create_dialog.toString())
+                            Text(text = stringResource(R.string.account_create_dialog))
                         },
                         confirmButton = {
                             TextButton(onClick = {
@@ -326,10 +326,10 @@ fun SignupScreen(navController: NavController) {
                     AlertDialog(
                         onDismissRequest = { showDialogError = false },
                         title = {
-                            Text(text = R.string.try_again.toString())
+                            Text(text = stringResource(R.string.try_again))
                         },
                         text = {
-                            Text(text = R.string.try_again_dialog.toString())
+                            Text(text = stringResource(R.string.try_again_dialog))
                         },
                         confirmButton = {
                             TextButton(onClick = { showDialogError = false }) {
