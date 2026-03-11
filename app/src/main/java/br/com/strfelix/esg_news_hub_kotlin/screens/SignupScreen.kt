@@ -2,6 +2,7 @@ package br.com.strfelix.esg_news_hub_kotlin.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,6 +35,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -42,7 +45,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import br.com.strfelix.esg_news_hub_kotlin.R
 import br.com.strfelix.esg_news_hub_kotlin.routes.Destination
+import br.com.strfelix.esg_news_hub_kotlin.screens.components.BackgroundPosition
+import br.com.strfelix.esg_news_hub_kotlin.screens.components.BackgroundVector
+import br.com.strfelix.esg_news_hub_kotlin.ui.theme.EsgBackgroundGradient
 import br.com.strfelix.esg_news_hub_kotlin.ui.theme.EsgnewshubkotlinTheme
 
 @Composable
@@ -53,20 +60,18 @@ fun SignupScreen(navController: NavController) {
     var senha by remember { mutableStateOf("") }
     var senhaVisivel by remember { mutableStateOf(false) }
 
+
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFFFFD740),
-                        Color(0xFFFED145)
-                    )
-                )
+                EsgBackgroundGradient
             ),
         contentAlignment = Alignment.Center
     ) {
-
+        BackgroundVector(position = BackgroundPosition.Top)
+        BackgroundVector(position = BackgroundPosition.Bottom)
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(24.dp)
@@ -74,28 +79,21 @@ fun SignupScreen(navController: NavController) {
 
             Row(verticalAlignment = Alignment.CenterVertically) {
 
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.Article,
-                    contentDescription = "Logo",
+                Icon (
+                    painter = painterResource(id = R.drawable.logo_esg),
+                    contentDescription = "Logo ESG News",
                     tint = Color.Black,
-                    modifier = Modifier.size(32.dp)
                 )
+                Spacer(modifier = Modifier.height(24.dp))
 
-                Spacer(modifier = Modifier.width(8.dp))
 
-                Text(
-                    text = "ESG News",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black
-                )
             }
 
             Spacer(modifier = Modifier.height(40.dp))
 
             Text(
-                text = "Faça seu cadastro",
-                fontSize = 18.sp,
+                text = stringResource(id= R.string.signup_title),
+                fontSize = 24.sp,
                 color = Color.Black
             )
 
@@ -104,7 +102,7 @@ fun SignupScreen(navController: NavController) {
             OutlinedTextField(
                 value = nome,
                 onValueChange = { nome = it },
-                placeholder = { Text("Seu nome") },
+                placeholder = { Text(text=stringResource(id = R.string.name_hint)) },
                 shape = RoundedCornerShape(10.dp),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedContainerColor = Color.White,
@@ -118,7 +116,7 @@ fun SignupScreen(navController: NavController) {
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                placeholder = { Text("Digite seu email") },
+                placeholder = { Text(text=stringResource(id = R.string.email_hint))},
                 shape = RoundedCornerShape(10.dp),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedContainerColor = Color.White,
@@ -132,7 +130,7 @@ fun SignupScreen(navController: NavController) {
             OutlinedTextField(
                 value = senha,
                 onValueChange = { senha = it },
-                placeholder = { Text("Insira sua senha") },
+                placeholder = { Text(text=stringResource(id = R.string.password_hint))},
                 visualTransformation =
                     if (senhaVisivel) VisualTransformation.None
                     else PasswordVisualTransformation(),
@@ -162,26 +160,40 @@ fun SignupScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Row {
+            Row (horizontalArrangement = Arrangement.spacedBy(16.dp)
+            )
+            {
 
                 Button(
-                    onClick = { },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Black
-                    ),
-                    modifier = Modifier.weight(1f)
+                    onClick = {navController.navigate("home")},
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(56.dp)
                 ) {
-                    Text("Cadastrar", color = Color.White)
+                    Text(
+                        text = stringResource(id = R.string.signup_button),
+                        color = Color.White,
+                        fontSize = 18.sp
+                    )
                 }
 
-                Spacer(modifier = Modifier.width(12.dp))
-
                 OutlinedButton(
-                    onClick = { },
-                    modifier = Modifier.weight(1f),
-                    border = BorderStroke(2.dp, Color.Black)
+                    onClick = { navController.navigate("initial")},
+                    border = BorderStroke(2.dp, Color.Black),
+                    colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Black),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(56.dp)
                 ) {
-                    Text("Cancelar", color = Color.Black)
+                    Text(
+                        text = stringResource(id = R.string.cancel_button),
+                        color = Color.Black,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Medium
+                    )
                 }
             }
         }

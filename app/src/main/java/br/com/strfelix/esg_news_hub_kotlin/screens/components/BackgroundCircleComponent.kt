@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import br.com.strfelix.esg_news_hub_kotlin.R
@@ -17,12 +16,17 @@ enum class BackgroundPosition {
 
 @Composable
 fun BoxScope.BackgroundVector(
-    drawable: Int = R.drawable.circles_vector,
+    drawable: Int? = null,
     position: BackgroundPosition
 ) {
+    val resourceId = drawable ?: if (position == BackgroundPosition.Top) {
+        R.drawable.circle_top
+    } else {
+        R.drawable.circle_bottom
+    }
 
     Image(
-        painter = painterResource(id = drawable),
+        painter = painterResource(id = resourceId),
         contentDescription = null,
         modifier = Modifier
             .align(
@@ -30,9 +34,6 @@ fun BoxScope.BackgroundVector(
                     Alignment.TopCenter
                 else
                     Alignment.BottomCenter
-            )
-            .rotate(
-                if (position == BackgroundPosition.Bottom) 180f else 0f
             )
             .graphicsLayer(scaleX = 1.5f, scaleY = 1.5f)
     )
