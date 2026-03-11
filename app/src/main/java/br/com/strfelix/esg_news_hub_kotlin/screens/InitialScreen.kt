@@ -151,7 +151,7 @@ fun ActionButtonsSection(
                 .height(56.dp)
         ) {
             Text(
-                text = "Cadastro",
+                text = stringResource(id = R.string.signup_button),
                 color = Color.Black,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Medium

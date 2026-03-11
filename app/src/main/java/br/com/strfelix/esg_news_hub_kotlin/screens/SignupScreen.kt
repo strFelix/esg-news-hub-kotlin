@@ -60,6 +60,8 @@ fun SignupScreen(navController: NavController) {
     var senha by remember { mutableStateOf("") }
     var senhaVisivel by remember { mutableStateOf(false) }
 
+
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -163,7 +165,7 @@ fun SignupScreen(navController: NavController) {
             {
 
                 Button(
-                    onClick = {},
+                    onClick = {navController.navigate("home")},
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
                     shape = RoundedCornerShape(12.dp),
                     modifier = Modifier
@@ -178,7 +180,7 @@ fun SignupScreen(navController: NavController) {
                 }
 
                 OutlinedButton(
-                    onClick = { },
+                    onClick = { navController.navigate("initial")},
                     border = BorderStroke(2.dp, Color.Black),
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Black),
                     shape = RoundedCornerShape(12.dp),
