@@ -15,4 +15,13 @@
     <string name="category_environment">Environment</string>
     <string name="category_social">Social</string>
     <string name="category_governance">Governance</string>
+    <string name="username_is_required">Username is required.</string>
+    <string name="email_is_required">E-mail is required.</string>
+    <string name="password_is_required">Password is required.\n</string>
+    <string name="authentication_error">Error authenticating user. Please check your email and/or password.</string>
+    <string name="show_password_description">Show password.</string>
+    <string name="success">Success!</string>
+    <string name="account_create_dialog">Account created successfully.</string>
+    <string name="try_again">Try again</string>
+    <string name="try_again_dialog">Please fill all fields correctly.</string>
 </resources>

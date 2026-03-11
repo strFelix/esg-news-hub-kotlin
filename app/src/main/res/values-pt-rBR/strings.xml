@@ -11,12 +11,22 @@
     <string name="password_hint">Digite sua senha</string>
     <string name="name_hint">Digite seu nome</string>
 
-    <string name="welcome_message_with_name">Bem vindo ao ESG News, %1$s</string>
+    <string name="welcome_message_with_name">Bem-vindo ao ESG News, %1$s</string>
     <string name="search_article_hint">Pesquise um artigo</string>
 
     <string name="filter_by_category">Filtre por categoria</string>
     <string name="category_environment">Environment</string>
     <string name="category_social">Social</string>
     <string name="category_governance">Governance</string>
+
+    <string name="username_is_required">Nome de usuário é obrigatório.</string>
+    <string name="email_is_required">E-mail é obrigatório.</string>
+    <string name="password_is_required">Senha é obrigatória.\n</string>
+    <string name="authentication_error">Erro de autenticação. Por favor, verifique seu e-mail e/ou senha.</string>
+    <string name="show_password_description">Mostrar senha.</string>
+    <string name="success">Sucesso!</string>
+    <string name="account_create_dialog">Conta criada com sucesso.</string>
+    <string name="try_again">Tente novamente</string>
+    <string name="try_again_dialog">Por favor, preencha os campos corretamente.</string>
 
 </resources>
