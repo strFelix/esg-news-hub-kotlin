@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">ESG News</string>
+    <string name="welcome_message">Seja bem-vindo!</string>
+    <string name="login_title">Acessar conta</string>
+    <string name="login_button">Entrar</string>
+    <string name="signup_title">Criar conta</string>
+    <string name="signup_button">Cadastrar</string>
+    <string name="cancel_button">Cancelar</string>
+    <string name="email_hint">Digite seu email</string>
+    <string name="password_hint">Digite sua senha</string>
+    <string name="name_hint">Digite seu nome</string>
+
+    <string name="welcome_message_with_name">Bem vindo ao ESG News, %1$s</string>
+    <string name="search_article_hint">Pesquise um artigo</string>
+
+    <string name="filter_by_category">Filtre por categoria</string>
+    <string name="category_environment">Environment</string>
+    <string name="category_social">Social</string>
+    <string name="category_governance">Governance</string>
+
+</resources>

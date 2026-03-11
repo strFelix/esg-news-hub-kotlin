@@ -36,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -87,7 +88,7 @@ fun LoginScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(40.dp))
 
             Text(
-                text = "Faça seu login",
+                text = stringResource(id=R.string.login_title),
                 fontSize = 24.sp,
                 color = Color.Black
 
@@ -98,7 +99,7 @@ fun LoginScreen(navController: NavController) {
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                placeholder = { Text("Digite seu email") },
+                placeholder = { Text(text=stringResource(id = R.string.email_hint)) },
                 shape = RoundedCornerShape(10.dp),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedContainerColor = Color.White,
@@ -112,7 +113,7 @@ fun LoginScreen(navController: NavController) {
             OutlinedTextField(
                 value = senha,
                 onValueChange = { senha = it },
-                placeholder = { Text("Insira sua senha") },
+                placeholder = { Text(text=stringResource(id = R.string.password_hint)) },
 
                 visualTransformation =
                     if (senhaVisivel)
@@ -161,7 +162,7 @@ fun LoginScreen(navController: NavController) {
                         .height(56.dp)
                 ) {
                     Text(
-                        text = "Entrar",
+                        text = stringResource(id=R.string.login_button),
                         color = Color.White,
                         fontSize = 18.sp
                     )
@@ -177,7 +178,7 @@ fun LoginScreen(navController: NavController) {
                         .height(56.dp)
                 ) {
                     Text(
-                        text = "Cancelar",
+                        text = stringResource(id=R.string.cancel_button),
                         color = Color.Black,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Medium
