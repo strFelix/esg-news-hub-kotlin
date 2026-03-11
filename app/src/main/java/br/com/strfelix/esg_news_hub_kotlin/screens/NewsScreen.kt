@@ -115,7 +115,7 @@ fun Content(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .clickable() { navController.popBackStack() }
+                .clickable { navController.popBackStack() }
         ) {
 
             Icon(
