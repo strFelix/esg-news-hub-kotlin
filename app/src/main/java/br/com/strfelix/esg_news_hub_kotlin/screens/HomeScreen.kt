@@ -37,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -210,7 +211,7 @@ fun NewsFilterSection(
                 },
                 placeholder = {
                     Text(
-                        text = "Search an article",
+                        text = stringResource(R.string.search_an_article),
                         style = MaterialTheme.typography.bodyLarge,
                         color = Color.Gray,
                         fontWeight = FontWeight.SemiBold
@@ -225,7 +226,7 @@ fun NewsFilterSection(
             ) {
                 Icon(
                     imageVector = Icons.Default.Search,
-                    contentDescription = "Search",
+                    contentDescription = stringResource(R.string.search),
                     tint = MaterialTheme.colorScheme.onBackground
                 )
             }
@@ -236,7 +237,7 @@ fun NewsFilterSection(
 
         // Title
         Text(
-            text = "Filter by category",
+            text = stringResource(R.string.filter_by_category),
             style = MaterialTheme.typography.titleSmall,
             color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.SemiBold,
@@ -253,19 +254,19 @@ fun NewsFilterSection(
         ) {
 
             CategoryButtonComponent(
-                text = "Environment",
+                text = stringResource(R.string.category_environment),
                 selected = selectedCategory == "environment",
                 onClick = { onCategoryClick("environment") }
             )
 
             CategoryButtonComponent(
-                text = "Social",
+                text = stringResource(R.string.category_social),
                 selected = selectedCategory == "social",
                 onClick = { onCategoryClick("social") }
             )
 
             CategoryButtonComponent(
-                text = "Governance",
+                text = stringResource(R.string.category_governance),
                 selected = selectedCategory == "governance",
                 onClick = { onCategoryClick("governance") }
             )

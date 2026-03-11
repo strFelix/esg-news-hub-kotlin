@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import br.com.strfelix.esg_news_hub_kotlin.R
@@ -55,7 +56,7 @@ fun TopBar(userName: String) {
                     modifier = Modifier.weight(1f)
                 ) {
                     Text(
-                        text = "Welcome to ESG News,",
+                        text = stringResource(R.string.welcome_message_with_name),
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.Medium
